@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Ti 💜</title>
+
+<style>
+body{
+margin:0;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial;
+background:linear-gradient(135deg,#d8b4fe,#a78bfa,#7c3aed);
+}
+
+.card{
+background:rgba(255,255,255,.2);
+padding:30px;
+border-radius:25px;
+width:90%;
+max-width:420px;
+text-align:center;
+backdrop-filter:blur(12px);
+box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+
+h2{color:white}
+
+label{
+color:white;
+display:block;
+text-align:left;
+margin-top:15px;
+}
+
+input{
+width:100%;
+padding:10px;
+border-radius:10px;
+border:none;
+margin-top:5px;
+outline:none;
+}
+
+.error{
+color:#ffdddd;
+font-size:13px;
+display:none;
+text-align:left;
+}
+
+button{
+margin-top:20px;
+padding:12px 25px;
+border:none;
+border-radius:25px;
+font-size:16px;
+cursor:pointer;
+}
+
+#loginBtn{background:#7c3aed;color:white}
+
+.buttons{
+display:flex;
+justify-content:space-around;
+margin-top:25px;
+}
+
+#yes{
+background:#22c55e;
+color:white;
+}
+
+#no{
+background:#ef4444;
+color:white;
+position:absolute;
+}
+
+.gallery img{
+width:100%;
+border-radius:15px;
+margin-top:10px;
+}
+
+.final{
+display:none;
+background:white;
+padding:30px;
+border-radius:25px;
+position:relative;
+overflow:hidden;
+}
+
+.final h3{
+color:#7c3aed;
+font-size:24px;
+}
+
+.final p{
+color:#444;
+font-size:18px;
+}
+
+.heart{
+position:absolute;
+font-size:22px;
+animation:float 4s infinite;
+opacity:0;
+}
+
+@keyframes float{
+0%{transform:translateY(100px);opacity:0}
+50%{opacity:1}
+100%{transform:translateY(-150px);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="login">
+<h2>Inicia sesión 💜</h2>
+
+<label>Usuario</label>
+<div class="error" id="userError">Usuario incorrecto</div>
+<input id="user">
+
+<label>Contraseña</label>
+<div class="error" id="passError">Contraseña incorrecta</div>
+<input type="password" id="pass">
+
+<button id="loginBtn" onclick="login()">Entrar</button>
+</div>
+
+<div class="card" id="question" style="display:none; position:relative;">
+<h2>¿Aceptas amarme para toda la vida?💜 </h2>
+
+<div class="gallery">
+<img src="img1.jpg">
+<img src="img2.jpg">
+<img src="img3.jpg">
+<img src="img4.jpg">
+</div>
+
+<div class="buttons">
+<button id="yes" onclick="yes()">Sí </button>
+<button id="no">No </button>
+</div>
+</div>
+
+<div class="card final" id="final">
+<h3>Sabía que dirías que sí. Te amo mi amorcito lindo💜</h3>
+<p>  
+✨</p>
+</div>
+
+<script>
+const USER="criss";
+const PASS="01042023";
+let noCount=0;
+
+const msgs=[
+"¿Estás seguro?🥺",
+"¿De verdad no me quieres?💔",
+"Más vale que digas que sí😌",
+"Es tu última advertencia😤",
+"Aquí no hay opción, es SÍ o SÍ"
+];
+
+  btnNo.addEventListener("touchstart", manejarNo);
+    btnNo.addEventListener("mouseover", manejarNo);
+
+    function manejarNo() {
+      moverBoton();
+      mostrarMensaje();
+    }
+
+    function moverBoton() {
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 120);
+      btnNo.style.position = "absolute";
+      btnNo.style.left = x + "px";
+      btnNo.style.top = y + "px";
+    }
+
+    function mostrarMensaje() {
+      const texto = intentosNo < mensajes.length
+        ? mensajes[intentosNo]
+: "Es sí o sí 🙈";
+
+      alerta.innerText = texto;
+      alerta.style.display = "block";
+
+      setTimeout(() => {
+        alerta.style.display = "none";
+      }, 2000);
+
+      intentosNo++;
+    }
+
+function login(){
+userError.style.display="none";
+passError.style.display="none";
+let ok=true;
+if(user.value!==USER){userError.style.display="block";ok=false;}
+if(pass.value!==PASS){passError.style.display="block";ok=false;}
+if(ok){
+login.style.display="none";
+question.style.display="block";
+}
+}
+
+const noBtn=document.getElementById("no");
+
+noBtn.addEventListener("mouseover",()=>{
+noCount++;
+alert(msgs[Math.min(noCount-1,msgs.length-1)]);
+const x=Math.random()*200-100;
+const y=Math.random()*150-75;
+noBtn.style.transform=`translate(${x}px,${y}px)`;
+});
+
+function yes(){
+question.style.display="none";
+final.style.display="block";
+
+for(let i=0;i<25;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💜";
+h.style.left=Math.random()*100+"%";
+h.style.animationDelay=Math.random()*4+"s";
+final.appendChild(h);
+}
+}
+</script>
+
+</body>
+</html>
